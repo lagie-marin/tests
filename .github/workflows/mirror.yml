@@ -39,7 +39,7 @@ jobs:
     - name: Install dependencies
       run: |
         cd pushguardian
-        npm ci
+        npm i
 
     - name: Link PushGuardian globally
       run: |
