@@ -50,6 +50,7 @@ jobs:
       run: |
         pwd
         cd ..
+        pwd
         mirror_cmd="npx pushguardian mirror"
         mirror_cmd="$mirror_cmd -s ${{ env.SOURCE_PLATFORM }}"
         mirror_cmd="$mirror_cmd -t ${{ env.TARGET_PLATFORM }}"
