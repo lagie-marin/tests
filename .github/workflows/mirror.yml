@@ -15,8 +15,8 @@ env:
   BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
   AZURE_DEVOPS_URL: ${{ secrets.AZURE_DEVOPS_URL }}
   AZURE_DEVOPS_TOKEN: ${{ secrets.AZURE_DEVOPS_TOKEN }}
-  SOURCE_PLATFORM: ${{ secrets.SOURCE_PLATFORM }}
-  TARGET_PLATFORM: ${{ secrets.TARGET_PLATFORM }}
+  SRC_PLATFORM: ${{ secrets.SOURCE_PLATFORM }}
+  TGT_PLATFORM: ${{ secrets.TARGET_PLATFORM }}
 
 jobs:
   mirror:
@@ -56,8 +56,8 @@ jobs:
           exit 1
         fi
         mirror_cmd="npx pushguardian mirror"
-        mirror_cmd="$mirror_cmd -s ${{ env.SOURCE_PLATFORM }}"
-        mirror_cmd="$mirror_cmd -t ${{ env.TARGET_PLATFORM }}"
+        mirror_cmd="$mirror_cmd -s ${{ env.SRC_PLATFORM }}"
+        mirror_cmd="$mirror_cmd -t ${{ env.TGT_PLATFORM }}"
         mirror_cmd="$mirror_cmd --target-repo ${{ secrets.TARGET_REPO }}"
         mirror_cmd="$mirror_cmd --source-repo ${{ secrets.SOURCE_REPO }}"
         mirror_cmd="$mirror_cmd --source-owner ${{ secrets.SOURCE_OWNER }}"
