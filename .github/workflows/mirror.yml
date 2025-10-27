@@ -50,6 +50,13 @@ jobs:
         npm link
 
     - name: Execute mirror command
+      env:
+        TOKEN: ${{ secrets.TOKEN }}
+        GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+        BITBUCKET_USERNAME: ${{ secrets.BITBUCKET_USERNAME }}
+        BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
+        AZURE_DEVOPS_URL: ${{ secrets.AZURE_DEVOPS_URL }}
+        AZURE_DEVOPS_TOKEN: ${{ secrets.AZURE_DEVOPS_TOKEN }}
       run: |
         if [ ! -f pushguardian.config.json ]; then
           echo "Error: pushguardian.config.json not found"
