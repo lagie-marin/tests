@@ -48,6 +48,7 @@ jobs:
 
     - name: Execute mirror command
       run: |
+        cd ..
         mirror_cmd="npx pushguardian mirror"
         mirror_cmd="$mirror_cmd -s ${{ env.SOURCE_PLATFORM }}"
         mirror_cmd="$mirror_cmd -t ${{ env.TARGET_PLATFORM }}"
@@ -55,8 +56,7 @@ jobs:
         mirror_cmd="$mirror_cmd --source-repo ${{ secrets.SOURCE_REPO }}"
         mirror_cmd="$mirror_cmd --source-owner ${{ secrets.SOURCE_OWNER }}"
         mirror_cmd="$mirror_cmd --target-owner ${{ secrets.TARGET_OWNER }}"
-
-        ls
+        
         if [ "${{ env.SYNC_BRANCHES }}" = "true" ]; then
           mirror_cmd="$mirror_cmd --sync-branches"
         fi
