@@ -1,5 +1,4 @@
 const { loadConfig, saveConfig } = require('../../core/configManager');
-const { default: chalk } = require('chalk');
 
 module.exports = {
     name: 'config',
@@ -10,6 +9,8 @@ module.exports = {
     ],
     options: [{ flags: '-l, --list', description: 'lister toute la configuration' }],
     action: async (key, value, options) => {
+        const { default: chalk } = await import('chalk');
+
         if (options.list) {
             const config = loadConfig();
             console.log(chalk.blue('📋 Configuration actuelle:'));
