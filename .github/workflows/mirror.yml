@@ -62,6 +62,15 @@ jobs:
           echo "Error: pushguardian.config.json not found"
           exit 1
         fi
+
+        # Debug: Verify TOKEN is set (show length without exposing the token)
+        if [ -z "$TOKEN" ]; then
+          echo "❌ ERROR: TOKEN environment variable is empty or not set!"
+          exit 1
+        else
+          echo "✅ TOKEN is set (length: ${#TOKEN} characters)"
+        fi
+
         mirror_cmd="npx pushguardian mirror"
         mirror_cmd="$mirror_cmd -s ${{ env.SOURCE_PLATFORM }}"
         mirror_cmd="$mirror_cmd -t ${{ env.TARGET_PLATFORM }}"
