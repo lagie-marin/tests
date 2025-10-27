@@ -48,6 +48,7 @@ jobs:
 
     - name: Execute mirror command
       run: |
+        pwd
         cd ..
         mirror_cmd="npx pushguardian mirror"
         mirror_cmd="$mirror_cmd -s ${{ env.SOURCE_PLATFORM }}"
