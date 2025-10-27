@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+.nuxt/
+.nuxt-types/
+.nitro/
+.output/
+*.d.ts
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+**/*.min.js
+coverage/
+*.log

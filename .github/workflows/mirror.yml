@@ -1,0 +1,67 @@
+name: Mirror Repository
+
+on:
+  push:
+    branches-ignore:
+      - " ga-ignore-*"
+  pull_request:
+    branches-ignore:
+      - " ga-ignore-*"
+
+env:
+  TOKEN: ${{ secrets.TOKEN }}
+  GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+  BITBUCKET_USERNAME: ${{ secrets.BITBUCKET_USERNAME }}
+  BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
+  AZURE_DEVOPS_URL: ${{ secrets.AZURE_DEVOPS_URL }}
+  AZURE_DEVOPS_TOKEN: ${{ secrets.AZURE_DEVOPS_TOKEN }}
+  SOURCE_PLATFORM: ${{ secrets.SOURCE_PLATFORM }}
+  TARGET_PLATFORM: ${{ secrets.TARGET_PLATFORM }}
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout PushGuardian
+      uses: actions/checkout@v4
+      with:
+        repository: lagie-marin/PushGuardian
+        path: pushguardian
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: pushguardian/package-lock.json
+
+    - name: Install dependencies
+      run: |
+        cd pushguardian
+        npm ci
+
+    - name: Link PushGuardian globally
+      run: |
+        cd pushguardian
+        npm link
+
+    - name: Execute mirror command
+      run: |
+        mirror_cmd="npx pushguardian mirror"
+        mirror_cmd="$mirror_cmd --source ${{ env.SOURCE_PLATFORM }}"
+        mirror_cmd="$mirror_cmd --target ${{ env.TARGET_PLATFORM }}"
+        mirror_cmd="$mirror_cmd --repo ${{ env.REPO_NAME }}"
+        mirror_cmd="$mirror_cmd --source-owner ${{ env.SOURCE_OWNER }}"
+        mirror_cmd="$mirror_cmd --target-owner ${{ env.TARGET_OWNER }}"
+
+        if [ "${{ env.SYNC_BRANCHES }}" = "true" ]; then
+          mirror_cmd="$mirror_cmd --sync-branches"
+        fi
+
+        if [ "${{ env.PUBLIC_REPO }}" = "true" ]; then
+          mirror_cmd="$mirror_cmd --public-repo"
+        fi
+
+        echo "Executing: $mirror_cmd"
+        eval $mirror_cmd

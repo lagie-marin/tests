@@ -1,0 +1,6 @@
+#!/bin/bash
+cd pushguardian/
+npm i
+sudo npm link
+cd ..
+npx pushguardian install

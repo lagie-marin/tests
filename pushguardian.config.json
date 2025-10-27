@@ -1,0 +1,73 @@
+{
+    "mirroring": {
+        "enabled": true,
+        "defaultSettings": {
+            "autoSync": false,
+            "syncInterval": 24,
+            "includeBranches": true,
+            "includeTags": true
+        },
+        "platforms": {
+            "github": {
+                "enabled": true
+            },
+            "gitlab": {
+                "enabled": false
+            },
+            "bitbucket": {
+                "enabled": false
+            },
+            "azure": {
+                "enabled": false
+            }
+        }
+    },
+    "install": {
+        "mirroring": true,
+        "hooks": true,
+        "CQT": [
+            "JavaScript (ESLint)",
+            "TypeScript (TypeScript ESLint)",
+            "JSON (ESLint Plugin)",
+            "Markdown (ESLint Plugin)",
+            "YAML (ESLint Plugin)",
+            "Nuxt (ESLint Plugin)"
+        ]
+    },
+    "hooks": {
+        "commit-msg": {
+            "type": [
+                "ADD",
+                "UPDATE",
+                "DELETE",
+                "FIX",
+                "MERGE",
+                "CHORE",
+                "TEST"
+            ],
+            "constraints": {
+                "maxLength": 80
+            }
+        },
+        "post-checkout": {
+            "type": [
+                "main",
+                "develop",
+                "staging",
+                "feat",
+                "fix",
+                "chore",
+                "hotfixes"
+            ],
+            "constraints": {}
+        },
+        "pre-push": {}
+    },
+    "validate": {
+        "directories": [
+            "src/"
+        ],
+        "onMissing": "ignore",
+        "activateCQT": true
+    }
+}
