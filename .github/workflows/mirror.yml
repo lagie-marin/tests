@@ -23,6 +23,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout current repository
+      uses: actions/checkout@v4
+
     - name: Checkout PushGuardian
       uses: actions/checkout@v4
       with:
@@ -48,7 +51,6 @@ jobs:
 
     - name: Execute mirror command
       run: |
-        cd ..
         if [ ! -f pushguardian.config.json ]; then
           echo "Error: pushguardian.config.json not found"
           exit 1
